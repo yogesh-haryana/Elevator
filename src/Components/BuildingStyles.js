@@ -10,35 +10,21 @@ const useStyles = makeStyles({
   },
   elevatorSection: {
     height: "100%",
-    width: "20%",
+    width: "30%",
     border: "1px solid grey",
     borderRight: "none",
-    alignItems: "right"
-  },
-  elevator: {
-    height: "90px",
-    width: "45px",
-    border: "1px solid grey",
-    backgroundColor: "#CBEDD5",
+    alignItems: "right",
     position: "relative"
   },
   floorSection: {
     height: "100%",
-    width: "80%",
+    width: "70%",
     border: "1px solid grey",
     borderLeft: "none",
     display: "flex",
     flexDirection: "column"
-  },
-  floor: {
-    borderBottom: "1px solid grey",
-    height: "25%",
-    width: "100%",
-    position: "relative"
-  },
-  floorHeading: {
-    margin: "auto"
   }
+
 });
 
 export default useStyles;
