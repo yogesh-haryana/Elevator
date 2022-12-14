@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     backgroundColor: "#CBEDD5",
     position: "absolute",
     left: "6px",
-    transition: "all 2s ease"
+    transition: "all 3s ease"
   }
 
 });

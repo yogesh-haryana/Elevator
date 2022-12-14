@@ -7,7 +7,7 @@ function Floor(props) {
   const { selectFloor } = props;
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.floorContainer}>
       <div className={classes.floor}>
         <UpDownButtons selectFloor={selectFloor} floorValue={3} />
         <span className={classes.floorHeading}>Floor - 3</span>
