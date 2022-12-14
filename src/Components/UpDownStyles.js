@@ -10,8 +10,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
     height: "25px",
     width: "25px",
-    textAlign: "center",
-    lineHeight: "1"
+    textAlign: "center"
   }
 });
 

@@ -13,13 +13,7 @@ const useStyles = makeStyles({
     width: "20%",
     border: "1px solid grey",
     borderRight: "none",
-    alignItems: "right"
-  },
-  elevator: {
-    height: "90px",
-    width: "45px",
-    border: "1px solid grey",
-    backgroundColor: "#CBEDD5",
+    alignItems: "right",
     position: "relative"
   },
   floorSection: {
@@ -28,16 +22,7 @@ const useStyles = makeStyles({
     border: "1px solid grey",
     borderLeft: "none",
     display: "flex",
-    flexDirection: "column"
-  },
-  floor: {
-    borderBottom: "1px solid grey",
-    height: "25%",
-    width: "100%",
-    position: "relative"
-  },
-  floorHeading: {
-    margin: "auto"
+    flexDirection: "row"
   }
 });
 
