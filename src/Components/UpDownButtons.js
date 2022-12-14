@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React from "react";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
@@ -6,9 +5,9 @@ import useStyles from "./UpDownStyles";
 
 function UpDownButtons(props) {
   const classes = useStyles();
-  const { onFloorSelect, floorValue } = props;
+  const { selectFloor, floorValue } = props;
   const handleClick = () => {
-    onFloorSelect(floorValue);
+    selectFloor(floorValue);
   };
   return (
     <div className={classes.buttonsContainer}>
