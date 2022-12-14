@@ -1,23 +1,37 @@
+/* eslint-disable react/prop-types */
 import React from "react";
+import Button from "./Button";
 import useStyles from "./LiftButtonStyles";
 
-function LiftButton() {
+function LiftButton(props) {
+  const { selectedFloor = [], onFloorSelect, floorValue } = props;
   const classes = useStyles();
+
+  function handleClick(i) {
+    onFloorSelect(floorValue);
+    selectedFloor.push(i);
+  }
+
+  const mapMyButtons = () => {
+    const btnsArr = [];
+    for (let i = 3; i >= 0; i - 1) {
+      btnsArr.push(
+        <Button
+          key={i}
+          floorValue={floorValue}
+          onClick={() => handleClick(i)}
+          className={classes.liftButton}
+        >
+          {i}
+        </Button>
+      );
+    }
+    return btnsArr;
+  };
 
   return (
     <div className={classes.liftButtonContainer}>
-      <button type="button" className={classes.liftButton}>
-        3
-      </button>
-      <button type="button" className={classes.liftButton}>
-        2
-      </button>
-      <button type="button" className={classes.liftButton}>
-        1
-      </button>
-      <button type="button" className={classes.liftButton}>
-        0
-      </button>
+      {mapMyButtons()}
     </div>
   );
 }
