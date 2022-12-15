@@ -3,8 +3,8 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   liftButtonContainer: {
     position: "relative",
-    top: "5%",
-    left: "25%"
+    top: "8%",
+    left: "35%"
   },
   liftButton: {
     border: ".2px solid black",

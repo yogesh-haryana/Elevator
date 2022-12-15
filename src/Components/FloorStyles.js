@@ -5,10 +5,13 @@ const useStyles = makeStyles({
     width: "100%"
   },
   floor: {
-    borderBottom: "1px solid grey",
+    borderBottom: ".1px solid grey",
     height: "25%",
     width: "100%",
-    position: "relative"
+    position: "relative",
+    bottom: "3px",
+    display: "flex",
+    alignContent: "flex-end"
   },
   floorHeading: {
     margin: "auto"

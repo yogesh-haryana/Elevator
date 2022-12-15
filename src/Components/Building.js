@@ -1,4 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+/* eslint-disable no-console */
+import React, {
+  useState,
+  useEffect
+} from "react";
 import useStyles from "./BuildingStyles";
 import Elevator from "./Elevator";
 import Floor from "./Floor";
@@ -17,17 +21,19 @@ function Building() {
   const classes = useStyles();
   console.log(appState);
 
-  const moveLift = useCallback(() => {
-    if (appState.liftPosition) {
+  const moveLift = () => {
+    console.log("moveLift ");
+    if (!appState.liftPosition) {
       const liftPosition = appState.upFloors[0];
-      const direction = "up";
-      const selectedFloors = appState.upFloors.slice(1, appState.upFloors.length);
+      console.log(liftPosition, "liftposition");
+      const liftdirection = "up";
+      const selectedFlors = appState.upFloors.slice(1, appState.upFloors.length);
 
       updateState((prevState) => ({
         ...prevState,
         liftPosition,
-        selectedFloors,
-        direction
+        selectedFloors: selectedFlors,
+        direction: liftdirection
       }));
     } else {
       let isUp = appState.direction === "up";
@@ -45,7 +51,7 @@ function Building() {
         if (appState.upFloors.length) {
           const upFloors = [...appState.upFloors];
           const liftPosition = upFloors.shift();
-          direction = !upFloors.length && !appState.downFloors.lenght ? null : direction;
+          direction = !upFloors.length || !appState.downFloors.lenght ? null : "down";
           updateState((prevState) => ({
             ...prevState,
             liftPosition,
@@ -73,6 +79,7 @@ function Building() {
         updateState((prevState) => ({
           ...prevState,
           liftPosition,
+          direction,
           downFloors: downFloorsArray
         }));
       } else if (appState.upFloors.length) {
@@ -89,7 +96,7 @@ function Building() {
         }));
       }
     }
-  }, [appState]);
+  };
 
   const selectFloor = (value, direction = null) => {
     if (value === appState.liftPosition) {
@@ -115,16 +122,12 @@ function Building() {
     }));
   };
 
-  // useEffect(() => {
-  //   moveLift();
-  //   // setTimeout(moveLift(), 5000);
-  // }, [moveLift]);
-
   useEffect(() => {
     if (appState.move) {
       moveLift();
     }
-  }, [moveLift, appState.move]);
+    console.log("useEffect Called");
+  });
 
   return (
     <div className={classes.building}>

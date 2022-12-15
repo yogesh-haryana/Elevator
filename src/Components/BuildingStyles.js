@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   },
   elevatorSection: {
     height: "100%",
-    width: "30%",
+    width: "20%",
     border: "1px solid grey",
     borderRight: "none",
     alignItems: "right",
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
   floorSection: {
     height: "100%",
-    width: "70%",
+    width: "80%",
     border: "1px solid grey",
     borderLeft: "none",
     display: "flex",
