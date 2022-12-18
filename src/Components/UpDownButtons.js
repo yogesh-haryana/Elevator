@@ -6,15 +6,18 @@ import useStyles from "./UpDownStyles";
 function UpDownButtons(props) {
   const classes = useStyles();
   const { selectFloor, floorValue } = props;
-  const handleClick = () => {
-    selectFloor(floorValue);
+  const handleClickUp = () => {
+    selectFloor(floorValue, "up");
+  };
+  const handleClickDown = () => {
+    selectFloor(floorValue, "down");
   };
   return (
     <div className={classes.buttonsContainer}>
-      <button type="button" onClick={handleClick} className={classes.floorButtons}>
+      <button type="button" onClick={handleClickUp} className={classes.floorButtons}>
         <BiUpArrow />
       </button>
-      <button type="button" onClick={handleClick} className={classes.floorButtons}>
+      <button type="button" onClick={handleClickDown} className={classes.floorButtons}>
         <BiDownArrow />
       </button>
     </div>

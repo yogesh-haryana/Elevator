@@ -2,9 +2,9 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   liftButtonContainer: {
-    position: "relative",
-    top: "8%",
-    left: "35%"
+    display: "flex",
+    flexDirection: "column",
+    alignContent: "flex-end"
   },
   liftButton: {
     border: ".2px solid black",

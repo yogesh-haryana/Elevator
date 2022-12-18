@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import React, {
   useState,
@@ -13,27 +14,36 @@ const initialState = {
   direction: null,
   upFloors: [],
   downFloors: [],
-  move: false
-
+  move: false,
+  open: false
 };
 function Building() {
   const [appState, updateState] = useState(initialState);
   const classes = useStyles();
-  console.log(appState);
+
+  const openLift = () => {
+    updateState((prevState) => ({
+      ...prevState,
+      open: true
+    }));
+    setTimeout(() => {
+      updateState((prevState) => ({
+        ...prevState,
+        open: false
+      }));
+    }, 1000);
+  };
 
   const moveLift = () => {
-    console.log("moveLift ");
-    if (!appState.liftPosition) {
+    if (appState.liftPosition === 0) {
+      const liftDirection = "up";
       const liftPosition = appState.upFloors[0];
-      console.log(liftPosition, "liftposition");
-      const liftdirection = "up";
-      const selectedFlors = appState.upFloors.slice(1, appState.upFloors.length);
-
+      const upFloors = appState.upFloors.slice(1, appState.upFloors.length);
       updateState((prevState) => ({
         ...prevState,
         liftPosition,
-        selectedFloors: selectedFlors,
-        direction: liftdirection
+        direction: liftDirection,
+        upFloors
       }));
     } else {
       let isUp = appState.direction === "up";
@@ -41,17 +51,16 @@ function Building() {
       if (!appState.upFloors.length && !appState.downFloors.length) {
         updateState((prevState) => ({
           ...prevState,
-          direction: null,
-          move: false
+          move: false,
+          direction: null
         }));
         return;
       }
-
       if (isUp) {
         if (appState.upFloors.length) {
           const upFloors = [...appState.upFloors];
           const liftPosition = upFloors.shift();
-          direction = !upFloors.length || !appState.downFloors.lenght ? null : "down";
+          direction = !upFloors.length && !appState.downFloors.lenght ? null : direction;
           updateState((prevState) => ({
             ...prevState,
             liftPosition,
@@ -61,38 +70,37 @@ function Building() {
         } else if (appState.downFloors.length) {
           direction = "down";
           isUp = false;
-          const downFloorsArray = [...appState.downFloors];
-          const liftPosition = downFloorsArray.shift();
-          direction = !downFloorsArray.length && !appState.upFloors.lenght ? null : direction;
+          const downFloorArr = [...appState.downFloors];
+          const liftPosition = downFloorArr.shift();
+          direction = !downFloorArr.length && !appState.upFloors.lenght ? null : direction;
           updateState((prevState) => ({
             ...prevState,
             liftPosition,
             direction,
-            downFloors: downFloorsArray
+            downFlrs: downFloorArr
           }));
         }
       } else if (appState.downFloors.length) {
-        const downFloorsArray = [...appState.downFloors];
-        const liftPosition = downFloorsArray.shift();
-        direction = !downFloorsArray.length && !appState.upFloors.lenght ? null : direction;
+        const downFloorArr = [...appState.downFloors];
+        const liftPosition = downFloorArr.shift();
+        direction = !downFloorArr.length && !appState.upFloors.lenght ? null : direction;
 
         updateState((prevState) => ({
           ...prevState,
           liftPosition,
-          direction,
-          downFloors: downFloorsArray
+          downFloors: downFloorArr
         }));
       } else if (appState.upFloors.length) {
         direction = "up";
         isUp = true;
-        const upFloorsArray = [...appState.upFloors];
-        const liftPosition = upFloorsArray.shift();
-        direction = !upFloorsArray.length && !appState.downFloors.lenght ? null : direction;
+        const upFlrArr = [...appState.upFloors];
+        const liftPosition = upFlrArr.shift();
+        direction = !upFlrArr.length && !appState.downFloors.lenght ? null : direction;
         updateState((prevState) => ({
           ...prevState,
           liftPosition,
           direction,
-          upFloors: upFloorsArray
+          upFloors: upFlrArr
         }));
       }
     }
@@ -123,16 +131,31 @@ function Building() {
   };
 
   useEffect(() => {
-    if (appState.move) {
+    moveLift();
+  }, [appState.move]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      openLift();
+    }, 3000);
+  }, [appState.liftPosition]);
+
+  useEffect(() => {
+    if (!appState.open) {
       moveLift();
     }
-    console.log("useEffect Called");
-  });
+  }, [appState.open]);
+
+  console.log(appState);
 
   return (
     <div className={classes.building}>
       <div className={classes.elevatorSection}>
-        <Elevator selectFloor={selectFloor} liftPosition={appState.liftPosition} />
+        <Elevator
+          selectFloor={selectFloor}
+          liftPosition={appState.liftPosition}
+          isLiftOpen={appState.open}
+        />
       </div>
       <div className={classes.floorSection}>
         <Floor selectFloor={selectFloor} />
