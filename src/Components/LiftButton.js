@@ -1,22 +1,23 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+/* eslint-disable import/no-cycle */
+import React, { useContext } from "react";
 import useStyles from "./LiftButtonStyles";
+import { mainContext } from "./Building";
 
-function LiftButton(props) {
-  const { selectFloor } = props;
+function LiftButton() {
+  const { onSelectFloor } = useContext(mainContext);
   const classes = useStyles();
 
   const handleClick3 = () => {
-    selectFloor(3);
+    onSelectFloor(3);
   };
   const handleClick2 = () => {
-    selectFloor(2);
+    onSelectFloor(2);
   };
   const handleClick1 = () => {
-    selectFloor(1);
+    onSelectFloor(1);
   };
   const handleClick0 = () => {
-    selectFloor(0);
+    onSelectFloor(0);
   };
   return (
     <div className={classes.liftButtonContainer}>

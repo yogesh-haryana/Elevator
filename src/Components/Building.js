@@ -1,8 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-console */
+/* eslint-disable import/no-cycle */
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React, {
   useState,
-  useEffect
+  useEffect,
+  createContext
 } from "react";
 import useStyles from "./BuildingStyles";
 import Elevator from "./Elevator";
@@ -17,6 +18,8 @@ const initialState = {
   move: false,
   open: false
 };
+
+export const mainContext = createContext();
 function Building() {
   const [appState, updateState] = useState(initialState);
   const classes = useStyles();
@@ -132,6 +135,7 @@ function Building() {
 
   useEffect(() => {
     moveLift();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appState.move]);
 
   useEffect(() => {
@@ -144,21 +148,30 @@ function Building() {
     if (!appState.open) {
       moveLift();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appState.open]);
 
-  console.log(appState);
+  const valueToElev = {
+    liftPosition: appState.liftPosition,
+    onSelectFloor: selectFloor,
+    isLiftOpen: appState.open
+  };
+
+  const valueToUpDown = {
+    onSelectFloor: selectFloor
+  };
 
   return (
     <div className={classes.building}>
       <div className={classes.elevatorSection}>
-        <Elevator
-          selectFloor={selectFloor}
-          liftPosition={appState.liftPosition}
-          isLiftOpen={appState.open}
-        />
+        <mainContext.Provider value={valueToElev}>
+          <Elevator />
+        </mainContext.Provider>
       </div>
       <div className={classes.floorSection}>
-        <Floor selectFloor={selectFloor} />
+        <mainContext.Provider value={valueToUpDown}>
+          <Floor />
+        </mainContext.Provider>
       </div>
     </div>
   );

@@ -1,16 +1,19 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+/* eslint-disable import/no-cycle */
+import React, { useContext } from "react";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
+import PropTypes from "prop-types";
 import useStyles from "./UpDownStyles";
+import { mainContext } from "./Building";
 
 function UpDownButtons(props) {
   const classes = useStyles();
-  const { selectFloor, floorValue } = props;
+  const { onSelectFloor } = useContext(mainContext);
+  const { floorValue } = props;
   const handleClickUp = () => {
-    selectFloor(floorValue, "up");
+    onSelectFloor(floorValue, "up");
   };
   const handleClickDown = () => {
-    selectFloor(floorValue, "down");
+    onSelectFloor(floorValue, "down");
   };
   return (
     <div className={classes.buttonsContainer}>
@@ -25,3 +28,11 @@ function UpDownButtons(props) {
 }
 
 export default UpDownButtons;
+
+UpDownButtons.propTypes = {
+  floorValue: PropTypes.number
+};
+
+UpDownButtons.defaultProps = {
+  floorValue: 0
+};
